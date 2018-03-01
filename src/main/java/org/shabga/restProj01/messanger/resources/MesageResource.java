@@ -10,6 +10,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.shabga.restProj01.messanger.model.Message;
@@ -23,8 +24,15 @@ public class MesageResource {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Message> myMessage() {
-		
+	public List<Message> myMessages(@QueryParam("year") int year,
+									@QueryParam("start") int start,
+									@QueryParam("size") int size) {
+		if(year!=0) {
+			return messageService.getMessagesForYear(year);
+		}
+		if(start >=0 && size >0) {
+			return messageService.getMessagesPagination(start, size);
+		}
 		return messageService.getAllMessages();
 	}
 	
@@ -62,7 +70,7 @@ public class MesageResource {
 	@DELETE
 	@Path("/{messageId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Message updateMessage(@PathParam("messageId") long id) {
+	public Message deleteMessage(@PathParam("messageId") long id) {
 		
 		return messageService.removeMessage(id);
 		

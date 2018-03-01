@@ -2,6 +2,9 @@ package org.shabga.restProj01.messanger.model;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Profile {
 	
 	private long id;

@@ -1,6 +1,7 @@
 package org.shabga.restProj01.messanger.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,27 @@ public class MessageService {
 		return new ArrayList<Message>(this.messages.values());
 	}
 	
+	public List<Message> getMessagesForYear(int year){
+		
+		List<Message> list = new ArrayList<>();
+		Calendar cal  = Calendar.getInstance();
+		for(Message message : this.messages.values()) {
+			cal.setTime(message.getCreated());
+			if(cal.get(Calendar.YEAR) == year) {
+				list.add(message);
+			}
+		}
+		return list;
+	}
+	
+	public List<Message> getMessagesPagination(int start, int size){
+		
+		List<Message> list = new ArrayList<>(this.messages.values());
+		if(start+size > this.messages.size()) {
+			return list;
+		}
+		return list.subList(start, start+size);
+	}
 	public Message getMessage(long id) {
 		
 		return this.messages.get(id);
