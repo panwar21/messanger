@@ -2,6 +2,7 @@ package org.shabga.restProj01.messanger.resources;
 
 import java.util.List;
 
+import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -14,6 +15,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.shabga.restProj01.messanger.model.Message;
+import org.shabga.restProj01.messanger.resources.beans.MessageFilterBean;
 import org.shabga.restProj01.messanger.service.MessageService;
 
 @Path("/messages")
@@ -24,9 +26,14 @@ public class MesageResource {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Message> myMessages(@QueryParam("year") int year,
+	public List<Message> myMessages(@BeanParam MessageFilterBean messageFilterBean){
+	/*public List<Message> myMessages(@QueryParam("year") int year,
 									@QueryParam("start") int start,
 									@QueryParam("size") int size) {
+	*/	
+		int year = messageFilterBean.getYear();
+		int start = messageFilterBean.getStart();
+		int size = messageFilterBean.getSize();
 		if(year!=0) {
 			return messageService.getMessagesForYear(year);
 		}
@@ -73,6 +80,15 @@ public class MesageResource {
 	public Message deleteMessage(@PathParam("messageId") long id) {
 		
 		return messageService.removeMessage(id);
+		
+	}
+	
+	
+	@Path("/{messageId}/comments")
+	@Produces(MediaType.APPLICATION_JSON)
+	public CommentResource getCommentResource() {
+		
+		return new CommentResource();
 		
 	}
 	
