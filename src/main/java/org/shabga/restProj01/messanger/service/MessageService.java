@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.shabga.restProj01.messanger.database.DataBase;
+import org.shabga.restProj01.messanger.exception.DataNotFoundException;
 import org.shabga.restProj01.messanger.model.Message;
 
 public class MessageService {
@@ -46,8 +47,11 @@ public class MessageService {
 		}
 		return list.subList(start, start+size);
 	}
-	public Message getMessage(long id) {
-		
+	public Message getMessage(long id) throws DataNotFoundException {
+		Message result = this.messages.get(id);
+		if(result==null) {
+			throw new DataNotFoundException("message not found with id = " + id);
+		}
 		return this.messages.get(id);
 		
 	}

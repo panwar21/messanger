@@ -19,7 +19,9 @@ public class Comment {
 		this.created = created;
 	}
 	
-	
+	public Comment() {
+		
+	}
 	public long getId() {
 		return id;
 	}

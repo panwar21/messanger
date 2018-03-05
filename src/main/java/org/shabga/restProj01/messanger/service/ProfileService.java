@@ -16,6 +16,7 @@ private Map<String, Profile> profiles = DataBase.getProfiles();
 	public ProfileService() {
 		
 		this.profiles.put("abhi", new Profile(1,"dogg", "abhi" ,"panwar", new Date()));
+		this.profiles.put("abhi", new Profile(2,"dogg2", "abhi" ,"panwar", new Date()));
 		
 	}
 	

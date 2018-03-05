@@ -1,5 +1,7 @@
 package org.shabga.restProj01.messanger.resources;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -18,6 +20,14 @@ public class CommentResource {
 	
 	private CommentService commentService = new CommentService();
 	
+	
+	@GET
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Comment> getAllComments(@PathParam("messageId") long messageId) {
+		
+		return commentService.getAllComments(messageId);
+	}
 	
 	@GET
 	@Path("/{commentId}")

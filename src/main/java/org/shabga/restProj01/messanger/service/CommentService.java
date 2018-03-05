@@ -14,6 +14,7 @@ public class CommentService {
 	
 	public List<Comment> getAllComments(long messageId){
 		Map<Long, Comment> comments = messages.get(messageId).getComments();
+		//System.out.println(comments.values().toString());
 		return new ArrayList<Comment>(comments.values());
 	}
 	
